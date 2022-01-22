@@ -1,0 +1,33 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+    <!-- Configuration for the default package. -->
+    <package name="default" extends="struts-default">
+        <action name="registeruser" class="struts2.test.actions.UserAction" method="createUser">
+            <result name="REGISTER">/register.jsp</result>
+        </action>
+        <action name="report" class="struts2.test.actions.UserAction" method="reportUser">
+            <result name="REPORT">/report.jsp</result>
+        </action>
+        <action name="updatedetails" class="struts2.test.actions.UserAction" method="updateUser">
+            <result name="UPDATE">/update.jsp</result>
+        </action>
+        <action name="deleterecord" class="struts2.test.actions.UserAction" method="deleteUser">
+            <result name="DELETE">/delete.jsp</result>
+        </action>
+        <action name="registerproduct" class="struts2.test.actions.ProductAction" method="addproduct">
+            <result name="ADD PRODUCT">/product.jsp</result>
+        </action>
+        
+        <action name="productReport" class="struts2.test.actions.ProductAction" method="reportProduct">
+            <result name="PRODUCT REPORT">/productReport.jsp</result>
+        </action>
+        
+        <action name="updateproducts" class="struts2.test.actions.ProductAction" method="updateProduct">
+            <result name="UPDATE PRODUCT">/editProduct.jsp</result>
+        </action>
+        
+    </package>
+</struts>
