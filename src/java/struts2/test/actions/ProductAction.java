@@ -5,6 +5,7 @@
 package struts2.test.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.log4j.Logger;
 import java.util.ArrayList;
 import java.util.List;
 import struts2.test.beans.Product;
@@ -14,14 +15,14 @@ import struts2.test.dao.Products;
  *
  * @author ANIRBAN
  */
-public class ProductAction extends ActionSupport{
+public class ProductAction extends ActionSupport {
+
     private int productId;
     private String productName;
     private String productMake;
     private double price;
     private int availability;
-    
-    
+
     private static final long serialVersionUID = 6329394260276112660L;
     private String msg = "";
     Products products = null;
@@ -31,12 +32,18 @@ public class ProductAction extends ActionSupport{
     private List<Product> productList = null;
     private boolean noData = false;
 
-    
+    private static final Logger logger = Logger.getLogger(ProductAction.class);
+
+    public String execute() {
+        logger.info("inside ProductAction execute method");
+        return SUCCESS;
+    }
+
     public String addproduct() throws Exception {
         products = new Products();
 
         try {
-            setCtr(products.registerProduct( productId,  productName, productMake  ,  price,
+            setCtr(products.registerProduct(productId, productName, productMake, price,
                     availability));
             if (getCtr() > 0) {
                 setMsg("Registration Successfull");
@@ -48,7 +55,7 @@ public class ProductAction extends ActionSupport{
         }
         return "ADD PRODUCT";
     }
-    
+
     public String updateProduct() throws Exception {
 
         try {
@@ -60,7 +67,7 @@ public class ProductAction extends ActionSupport{
                     productMake = product.getProductMake();
                     price = product.getPrice();
                     availability = product.getAvailability();
-                
+
                 }
             } else {
                 int i = dao.updateProductDetails(productId, productName, productMake, price,
@@ -78,16 +85,15 @@ public class ProductAction extends ActionSupport{
 
         return "UPDATE PRODUCT";
     }
-    
+
     public String reportProduct() throws Exception {
         try {
             setProductList(new ArrayList<>());
             setProductList(dao.reportProduct());
-            
 
-            if (!productList.isEmpty() ) {
+            if (!productList.isEmpty()) {
                 setNoData(false);
-                System.out.println("Products retrieve = "+getProductList().size());
+                System.out.println("Products retrieve = " + getProductList().size());
                 System.out.println("setting nodata=false");
             } else {
                 setNoData(true);
@@ -96,9 +102,7 @@ public class ProductAction extends ActionSupport{
             e.printStackTrace();
         }
         return "PRODUCT REPORT";
-}
-    
-
+    }
 
     /**
      * @return the productId
